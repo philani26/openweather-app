@@ -10,14 +10,15 @@ class ForecastDay {
     var weatherList = (json["list"] as List)
         .map((item) => WeatherModel.fromJson(item))
         .toList();
-    
+
     final Map<String, WeatherModel> dayMap = {};
-    final todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final todayDate = DateFormat('EEE').format(DateTime.now());
 
     for (var weather in weatherList) {
-      final dateTime = weather.date != null ? DateTime.parse(weather.date!) : null;
+      final dateTime =
+          weather.date != null ? DateTime.parse(weather.date!) : null;
       if (dateTime != null) {
-        final date = DateFormat('yyyy-MM-dd').format(dateTime);
+        final date = DateFormat('EEE').format(dateTime);
         final dayName = date == todayDate ? 'Today' : _getDayName(dateTime);
 
         if (!dayMap.containsKey(date)) {
@@ -38,6 +39,6 @@ class ForecastDay {
   }
 
   static String _getDayName(DateTime dateTime) {
-    return DateFormat('EEEE').format(dateTime);
+    return DateFormat('EEE').format(dateTime);
   }
 }
